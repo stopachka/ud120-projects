@@ -19,22 +19,39 @@ from email_preprocess import preprocess
 ### labels_train and labels_test are the corresponding item labels
 features_train, features_test, labels_train, labels_test = preprocess()
 
-
-
-
 #########################################################
 ### your code goes here ###
 
 from sklearn.svm import SVC
-
-clf = SVC(kernel='linear')
-
-clf.fit(features_train, labels_train);
-
-pred = clf.predict(features_test)
-
 from sklearn.metrics import accuracy_score
 
-print 'accuracy: ', accuracy_score(labels_test, pred)
+clf = SVC(kernel='rbf', C=10000)
+
+def pred():
+    clf.fit(features_train, labels_train)
+    return clf.predict(features_test)
+
+def accuracy():
+    return accuracy_score(labels_test, pred())
+
+def specific_scores():
+    predictions = pred()
+    return [
+        '10:', predictions[10], '26:', predictions[26], '50:', predictions[50]
+    ]
+
+def by_chris():
+    return len(filter(lambda x: x == 1, pred()))
+
+def perf():
+    def f(label, f):
+        t0 = time()
+        f()
+        print label , " : " , round(time()-t0, 3), "s"
+
+    f("training", lambda : clf.fit(features_train, labels_train))
+    f("predicting", lambda : clf.predict(features_test))
+
+print by_chris()
 
 #########################################################
