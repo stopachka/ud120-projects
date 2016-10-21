@@ -33,7 +33,6 @@ from sklearn.naive_bayes import GaussianNB
 clf = GaussianNB()
 
 timeF(lambda : clf.fit(features_train, labels_train), "training")
-
 timeF(lambda : clf.fit(features_train, labels_train), "predicting")
 
 from sklearn.metrics import accuracy_score
