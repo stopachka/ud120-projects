@@ -9,9 +9,12 @@ from feature_format import featureFormat, targetFeatureSplit
 
 ### read in data dictionary, convert to numpy array
 data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r") )
+data_dict.pop('TOTAL', 0)
 features = ["salary", "bonus"]
 data = featureFormat(data_dict, features)
 
+def outliers():
+    return filter(lambda p: p['salary'] != 'NaN' and p['salary'] > 1000000, data_dict.itervalues())
 
 ### your code below
 
@@ -25,4 +28,4 @@ def draw():
     matplotlib.pyplot.ylabel("bonus")
     matplotlib.pyplot.show()
 
-draw()
+print outliers()
