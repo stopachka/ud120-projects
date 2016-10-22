@@ -54,6 +54,24 @@ features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
+from sklearn.preprocessing import MinMaxScaler
+
+_, salary, stock = zip(*data)
+
+def toNumpy(ft):
+    return numpy.array(ft).reshape((len(ft),1))
+
+def rescale(ft):
+    scaler = MinMaxScaler()
+    return (scaler.fit_transform(ft), scaler)
+
+# put the features into 2-D numpy arrays
+(salary, salaryScaler) = rescale(toNumpy(salary))
+(stock, stockScaler) = rescale(toNumpy(stock))
+
+# rescale
+print salaryScaler.transform([[200000.]])[0][0]
+print stockScaler.transform([[1000000.]])[0][0]
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to
