@@ -52,8 +52,8 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             email = open(path, "r")
 
             text = parseOutText(email)
-            for word in ["sara", "shackleton ", "chris", "germani"]:
-                text.replace(word, '')
+            for word in ["sara", "shackleton ", "chris", "germani", 'sshacklensf', 'cgermannsf']:
+                text = text.replace(word, '')
 
             word_data.append(text)
             from_data.append(nameToNum[name])
@@ -78,5 +78,4 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 clf = TfidfVectorizer(stop_words='english', lowercase=True)
 clf.fit(word_data)
 
-print clf.get_feature_names()
 print len(clf.get_feature_names())
