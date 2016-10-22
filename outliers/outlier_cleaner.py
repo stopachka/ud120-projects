@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import numpy as np
 
 def outlierCleaner(predictions, ages, net_worths):
     """
@@ -7,14 +8,17 @@ def outlierCleaner(predictions, ages, net_worths):
         residual errors (difference between the prediction
         and the actual net worth).
 
-        Return a list of tuples named cleaned_data where 
+        Return a list of tuples named cleaned_data where
         each tuple is of the form (age, net_worth, error).
     """
-    
-    cleaned_data = []
 
     ### your code goes here
 
-    
-    return cleaned_data
+    errors = predictions - net_worths
 
+    threshold = np.percentile(np.absolute(errors), 90)
+
+    return filter(
+        lambda (age, net_worth, error): abs(error) <= threshold,
+        zip(ages, net_worths, errors)
+    )
