@@ -28,11 +28,6 @@ labels, features = targetFeatureSplit(data)
 from sklearn import cross_validation
 features_train, features_test, labels_train, labels_test = cross_validation.train_test_split(features, labels, test_size=0.3, random_state=42)
 
-
-
-### it's all yours from here forward!
-
-
 from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeClassifier
 
